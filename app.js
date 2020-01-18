@@ -14,68 +14,52 @@ scores = [0, 0];
 roundScore = 0;
 activePlayer = 0;
 
-
 // document.querySelector('#current-' + activePlayer).textContent = dice;
 // var x = document.querySelector('#score-1').textContent
 // console.log(x);
 
-document.querySelector('.dice').style.display = 'none';
+document.querySelector(".dice").style.display = "none";
 
-document.getElementById('score-0').textContent = '0';
-document.getElementById('score-1').textContent = '0';
-document.getElementById('current-0').textContent = '0';
-document.getElementById('current-1').textContent = '0';
+document.getElementById("score-0").textContent = "0";
+document.getElementById("score-1").textContent = "0";
+document.getElementById("current-0").textContent = "0";
+document.getElementById("current-1").textContent = "0";
 
+document.querySelector(".btn-roll").addEventListener("click", function() {
+	//Do something here
+	var dice = Math.floor(Math.random() * 6) + 1;
 
-document.querySelector('.btn-roll').addEventListener('click', function () {
+	//2. Display the result
 
-    //Do something here 
-    var dice = Math.floor(Math.random() * 6) + 1;
+	var diceDOM = document.querySelector(".dice");
+	diceDOM.style.display = "block";
+	diceDOM.src = "dice-" + dice + ".png";
 
-    //2. Display the result 
+	//3. Updte the round score If the rolled number was NOT a 1
 
-    var diceDOM =
-        document.querySelector('.dice');
-    diceDOM.style.display = 'block';
-    diceDOM.src = 'dice-' + dice + '.png';
+	if (dice !== 1) {
+		roundScore = roundScore + dice;
+		document.querySelector("#current-" + activePlayer).textContent = roundScore;
+	} else {
+		// Next Player
+		activePlayer === 0 ? (activePlayer = 1) : (activePlayer = 0);
+		roundScore = 0;
 
+		// if (activePlayer === 0) {
+		//     activePlayer = 1;
 
-    //3. Updte the round score If the rolled number was NOT a 1 
+		// } else
 
-    if (dice !== 1) {
+		// {
+		//     activePlayer = 0;
+		// }
 
-        roundScore = roundScore + dice;
-        document.querySelector('#current-' + activePlayer).textContent = roundScore;
+		document.getElementById("current-0").textContent = "0";
+		document.getElementById("current-1").textContent = "0";
 
-    } else {
+		document.querySelector(".player-0-panel").classList.toggle("active");
+		document.querySelector(".player-1-panel").classList.toggle("active");
 
-        // Next Player
-        activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
-        roundScore = 0;
-
-        // if (activePlayer === 0) {
-        //     activePlayer = 1;
-
-        // } else
-
-        // {
-        //     activePlayer = 0;
-        // }
-
-        document.getElementById('current-0').textContent = '0';
-        document.getElementById('current-1').textContent = '0';
-
-        document.querySelector('.player-0-panel').classList.toggle('active');
-        document.querySelector('.player-1-panel').classList.toggle('active');
-
-        document.querySelector('.dice').style.display = 'none';
-
-    }
-
-    document.querySelector('.btn-hold').addEventListener('click', function(){
-        // current score
-    });
-
-
-
+		document.querySelector(".dice").style.display = "none";
+	}
 });
